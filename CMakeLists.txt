@@ -1,0 +1,34 @@
+
+cmake_minimum_required(VERSION 3.5.1)
+project(MML-SFML-Compat)
+
+set(MML_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/MML")
+set(MML_BUILD_DIR "${CMAKE_CURRENT_BINARY_DIR}/MMLBuild")
+set(MML_INSTALL_DIR "${MML_BUILD_DIR}/Install")
+make_directory(${MML_BUILD_DIR})
+
+# Configure MML
+message("Executing: ${CMAKE_COMMAND} -G \"${CMAKE_GENERATOR}\" \"${MML_SRC_DIR}\" \"-DCMAKE_INSTALL_PREFIX=${MML_INSTALL_DIR}\" \"-DSFML_DEPENDENCIES_INSTALL_PREFIX=${MML_INSTALL_DIR}/Dependencies\" \"-DSFML_MISC_INSTALL_PREFIX=${MML_INSTALL_DIR}\"")
+message("Command output redirected to: ${CMAKE_CURRENT_BINARY_DIR}/MMLConfigureLog.txt")
+execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" "${MML_SRC_DIR}" "-DCMAKE_INSTALL_PREFIX=${MML_INSTALL_DIR}" "-DSFML_DEPENDENCIES_INSTALL_PREFIX=${MML_INSTALL_DIR}/Dependencies" "-DSFML_MISC_INSTALL_PREFIX=${MML_INSTALL_DIR}"
+	WORKING_DIRECTORY "${MML_BUILD_DIR}"
+	OUTPUT_FILE "${CMAKE_CURRENT_BINARY_DIR}/MMLConfigureLog.txt"
+	ERROR_FILE "${CMAKE_CURRENT_BINARY_DIR}/MMLConfigureLog.txt"
+	RESULT_VARIABLE MML_CONFIGURE_STATUS)
+
+if (NOT "${MML_CONFIGURE_STATUS}" STREQUAL "0")
+	message(FATAL_ERROR "MML configure step exited with status ${MML_BUILD_STATUS}")
+endif()
+
+# Build & install MML
+message("Executing: ${CMAKE_COMMAND} --build \"${MML_BUILD_DIR}\" --target install")
+message("Command output redirected to: ${CMAKE_CURRENT_BINARY_DIR}/MMLBuildLog.txt")
+execute_process(COMMAND ${CMAKE_COMMAND} --build "${MML_BUILD_DIR}" --target install
+	WORKING_DIRECTORY "${MML_BUILD_DIR}"
+	OUTPUT_FILE "${CMAKE_CURRENT_BINARY_DIR}/MMLBuildLog.txt"
+	ERROR_FILE "${CMAKE_CURRENT_BINARY_DIR}/MMLBuildLog.txt"
+	RESULT_VARIABLE MML_BUILDINSTALL_STATUS)
+
+if (NOT "${MML_BUILDINSTALL_STATUS}" STREQUAL "0")
+	message(FATAL_ERROR "MML build & install steps exited with status ${MML_BUILDINSTALL_STATUS}")
+endif()
