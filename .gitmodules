@@ -2,3 +2,16 @@
 	path = MML
 	url = https://github.com/MML-Dev/MML.git
 	branch = EventType
+[submodule "test_projects/Thor"]
+	path = test_projects/Thor
+	url = https://github.com/Bromeon/Thor.git
+[submodule "test_projects/SelbaWard"]
+	path = test_projects/SelbaWard
+	url = https://github.com/Hapaxia/SelbaWard.git
+[submodule "test_projects/SFNUL"]
+	path = test_projects/SFNUL
+	url = https://github.com/binary1248/SFNUL.git
+[submodule "test_projects/ImGUI-SFML"]
+	path = test_projects/ImGUI-SFML
+	url = https://github.com/eliasdaler/imgui-sfml.git
+	branch = sfml-2.5.0
