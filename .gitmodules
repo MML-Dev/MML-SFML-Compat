@@ -1,0 +1,4 @@
+[submodule "MML"]
+	path = MML
+	url = https://github.com/MML-Dev/MML.git
+	branch = EventType
