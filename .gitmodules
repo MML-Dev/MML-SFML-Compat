@@ -15,3 +15,6 @@
 	path = test_projects/ImGUI-SFML
 	url = https://github.com/eliasdaler/imgui-sfml.git
 	branch = sfml-2.5.0
+[submodule "test_projects/ImGui"]
+	path = test_projects/ImGui
+	url = https://github.com/ocornut/imgui.git
