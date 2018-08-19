@@ -1,4 +1,7 @@
 
+# Make sure MML_SFML_COMPAT is defined for project that don't use SFML's imported targets
+add_definitions(-DMML_SFML_COMPAT)
+
 set(SFML_ROOT "${MML_INSTALL_DIR}/lib/cmake/SFML")
 set(IMGUI_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/ImGui")
 add_subdirectory(ImGUI-SFML)
