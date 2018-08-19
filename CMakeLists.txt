@@ -32,3 +32,5 @@ execute_process(COMMAND ${CMAKE_COMMAND} --build "${MML_BUILD_DIR}" --target ins
 if (NOT "${MML_BUILDINSTALL_STATUS}" STREQUAL "0")
 	message(FATAL_ERROR "MML build & install steps exited with status ${MML_BUILDINSTALL_STATUS}")
 endif()
+
+add_subdirectory(test_projects)
