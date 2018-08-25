@@ -187,3 +187,47 @@ void test_system_utf_hpp() {
     sf::Int32* encodeAnsi = sf::Utf32::encodeAnsi(sf::Uint32(42), std::begin(outputArray), 'z', std::locale());
     sf::Int32* endIt = sf::Utf32::encodeWide(sf::Uint32(42), std::begin(outputArray), wchar_t(42));
 }
+
+void test_vector2_hpp() {
+    sf::Vector2<wchar_t> customVec, initialized(wchar_t(41), wchar_t(42));
+    sf::Vector2u uintVec(1, 2);
+    sf::Vector2i intVec(uintVec);
+    sf::Vector2f floatVec;
+    sf::Vector2i v1, v2;
+    auto v3 = -v1;
+    v1 += v2;
+    v1 -= v2;
+    v3 = v1 + v2;
+    v3 = v1 - v2;
+    v3 = v1 * 2;
+    v3 = 2 * v1;
+    v3 *= 2;
+    v3 = v1 / 2;
+    v3 /= 2;
+    bool r = v1 == v2;
+    r = v1 != v2;
+    v3.x;
+    v3.y;
+}
+
+void test_vector3_hpp() {
+    sf::Vector3<wchar_t> customVec, initialized(wchar_t(41), wchar_t(42), wchar_t(43));
+    sf::Vector3i intVec(customVec);
+    sf::Vector3f floatVec;
+    sf::Vector3i v1, v2;
+    auto v3 = -v1;
+    v1 += v2;
+    v1 -= v2;
+    v3 = v1 + v2;
+    v3 = v1 - v2;
+    v3 = v1 * 2;
+    v3 = 2 * v1;
+    v3 *= 2;
+    v3 = v1 / 2;
+    v3 /= 2;
+    bool r = v1 == v2;
+    r = v1 != v2;
+    v3.x;
+    v3.y;
+    v3.z;
+}
