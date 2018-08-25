@@ -147,28 +147,28 @@ void test_system_utf()
     std::array<wchar_t, 3> wideInput = {};
     std::array<DataType, 3> outputArray = {};
     sf::Uint32 input = 0, output = 0;
-    DataType* decoded = UtfClass::decode(std::begin(inputArray), std::end(inputArray), output, sf::Uint32(42));
+    decltype(inputArray)::iterator decoded = UtfClass::decode(std::begin(inputArray), std::end(inputArray), output, sf::Uint32(42));
     
     DataType* endIt = UtfClass::encode(input, outputArray.data(), sf::Uint32(42));
-    DataType* nextIt = UtfClass::next(std::begin(inputArray), std::end(inputArray));
+    decltype(inputArray)::iterator nextIt = UtfClass::next(std::begin(inputArray), std::end(inputArray));
     std::size_t count = UtfClass::count(std::begin(inputArray), std::end(inputArray));
-    DataType* ansiIt = UtfClass::fromAnsi(std::begin(inputArray), std::end(inputArray),
+    decltype(outputArray)::iterator ansiIt = UtfClass::fromAnsi(std::begin(inputArray), std::end(inputArray),
                                           std::begin(outputArray), std::locale());
-    DataType* fromWide = UtfClass::fromWide(std::begin(wideInput), std::end(wideInput),
+	decltype(outputArray)::iterator fromWide = UtfClass::fromWide(std::begin(wideInput), std::end(wideInput),
                                             std::begin(outputArray));
-    DataType* fromLatin1 = UtfClass::fromLatin1(std::begin(inputArray), std::end(inputArray),
+	decltype(outputArray)::iterator fromLatin1 = UtfClass::fromLatin1(std::begin(inputArray), std::end(inputArray),
                                             std::begin(outputArray));
-    DataType* toAnsi = UtfClass::toAnsi(std::begin(inputArray), std::end(inputArray),
+	decltype(outputArray)::iterator toAnsi = UtfClass::toAnsi(std::begin(inputArray), std::end(inputArray),
                                             std::begin(outputArray), 'z', std::locale());
-    DataType* toWide = UtfClass::toWide(std::begin(inputArray), std::end(inputArray),
+	decltype(outputArray)::iterator toWide = UtfClass::toWide(std::begin(inputArray), std::end(inputArray),
                                             std::begin(outputArray), wchar_t(13));
-    DataType* toLatin1 = UtfClass::toLatin1(std::begin(inputArray), std::end(inputArray),
+	decltype(outputArray)::iterator toLatin1 = UtfClass::toLatin1(std::begin(inputArray), std::end(inputArray),
                                             std::begin(outputArray));
-    DataType* toUtf8 = UtfClass::toUtf8(std::begin(inputArray), std::end(inputArray),
+	decltype(outputArray)::iterator toUtf8 = UtfClass::toUtf8(std::begin(inputArray), std::end(inputArray),
                                         std::begin(outputArray));
-    DataType* toUtf16 = UtfClass::toUtf16(std::begin(inputArray), std::end(inputArray),
+	decltype(outputArray)::iterator toUtf16 = UtfClass::toUtf16(std::begin(inputArray), std::end(inputArray),
                                           std::begin(outputArray));
-    DataType* toUtf32 = UtfClass::toUtf32(std::begin(inputArray), std::end(inputArray),
+	decltype(outputArray)::iterator toUtf32 = UtfClass::toUtf32(std::begin(inputArray), std::end(inputArray),
                                           std::begin(outputArray));
 }
 
@@ -184,8 +184,8 @@ void test_system_utf_hpp() {
     
     sf::Uint32 decodedAnsi = sf::Utf32::decodeAnsi(input, std::locale());
     sf::Uint32 decodeWide = sf::Utf32::decodeWide(wchar_t(42));
-    sf::Int32* encodeAnsi = sf::Utf32::encodeAnsi(sf::Uint32(42), std::begin(outputArray), 'z', std::locale());
-    sf::Int32* endIt = sf::Utf32::encodeWide(sf::Uint32(42), std::begin(outputArray), wchar_t(42));
+    decltype(outputArray)::iterator encodeAnsi = sf::Utf32::encodeAnsi(sf::Uint32(42), std::begin(outputArray), 'z', std::locale());
+	decltype(outputArray)::iterator endIt = sf::Utf32::encodeWide(sf::Uint32(42), std::begin(outputArray), wchar_t(42));
 }
 
 void test_vector2_hpp() {
