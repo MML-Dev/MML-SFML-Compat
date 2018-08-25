@@ -20,9 +20,10 @@ execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" "${MML_SRC_DIR}
 	RESULT_VARIABLE MML_CONFIGURE_STATUS)
 
 if (NOT "${MML_CONFIGURE_STATUS}" STREQUAL "0")
-	message(FATAL_ERROR "MML configure step exited with status ${MML_BUILD_STATUS}")
+	message(SEND_ERROR "MML configure step exited with status ${MML_BUILD_STATUS}")
 	file(READ "${CMAKE_CURRENT_BINARY_DIR}/MMLConfigureLog.txt" MML_CONFIGURE_LOG)
 	message(STATUS "Log contents:\n${MML_CONFIGURE_LOG}")
+	return()
 endif()
 
 # Build & install MML
@@ -35,9 +36,10 @@ execute_process(COMMAND ${CMAKE_COMMAND} --build "${MML_BUILD_DIR}" --target ins
 	RESULT_VARIABLE MML_BUILDINSTALL_STATUS)
 
 if (NOT "${MML_BUILDINSTALL_STATUS}" STREQUAL "0")
-	message(FATAL_ERROR "MML build & install steps exited with status ${MML_BUILDINSTALL_STATUS}")
+	message(SEND_ERROR "MML build & install steps exited with status ${MML_BUILDINSTALL_STATUS}")
 	file(READ "${CMAKE_CURRENT_BINARY_DIR}/MMLBuildLog.txt" MML_BUILD_LOG)
 	message(STATUS "Log contents:\n${MML_BUILD_LOG}")
+	return()
 endif()
 
 add_subdirectory(test_projects)
