@@ -39,3 +39,33 @@ void test_input_sound_file()
     sf::Int16 samples[1] = {0};
     sf::Uint64 read = file.read(samples, sf::Uint64(1));
 }
+
+void test_listener()
+{
+    sf::Listener::setGlobalVolume(1.f);
+    float vol = sf::Listener::getGlobalVolume();
+    sf::Listener::setPosition(1.f, 1.f, 1.f);
+    sf::Listener::setPosition({1.f, 1.f, 1.f});
+    sf::Vector3f pos = sf::Listener::getPosition();
+    sf::Listener::setDirection(1.f, 1.f, 1.f);
+    sf::Listener::setDirection({1.f, 1.f, 1.f});
+    sf::Vector3f dir = sf::Listener::getDirection();
+    sf::Listener::setUpVector(1.f, 1.f, 1.f);
+    sf::Listener::setUpVector({1.f, 1.f, 1.f});
+    sf::Vector3f up = sf::Listener::getUpVector();
+}
+
+void test_music()
+{
+    sf::Music music;
+    bool ret = music.openFromFile("/beep/boop/");
+    char data[1] = {0};
+    ret = music.openFromMemory(data, std::size_t(1));
+    sf::FileInputStream inputStreamFile;
+    sf::MemoryInputStream inputStreamMem;
+    ret = music.openFromStream(inputStreamFile);
+    ret = music.openFromStream(inputStreamMem);
+    sf::Time duration = music.getDuration();
+    sf::Music::TimeSpan loop = music.getLoopPoints();
+    music.setLoopPoints(loop);
+}
