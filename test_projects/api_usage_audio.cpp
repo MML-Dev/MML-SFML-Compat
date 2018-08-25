@@ -114,3 +114,22 @@ void test_sound_buffer()
     sf::Time duration = buffer.getDuration();
     buffer = buffer2;
 }
+
+void test_sound_recorder()
+{
+    // SoundBufferRecorder is the only implementation of SoundRecorder that's provided
+    sf::SoundBufferRecorder sbf;
+    sf::SoundBuffer buffer = sbf.getBuffer();
+    
+    sbf.start();
+    sbf.stop();
+    unsigned int sampleRate = sbf.getSampleRate();
+    
+    std::vector<std::string> devices = sf::SoundRecorder::getAvailableDevices();
+    std::string device = sf::SoundRecorder::getDefaultDevice();
+    bool ret = sbf.setDevice(device);
+    device = sbf.getDevice();
+    sbf.setChannelCount(12u);
+    unsigned int channelCount = sbf.getChannelCount();
+    ret = sf::SoundRecorder::isAvailable();
+}
