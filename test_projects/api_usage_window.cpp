@@ -369,11 +369,155 @@ void test_mouse()
     bool isButtonPressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
     sf::Vector2i position = sf::Mouse::getPosition();
 
-    sf::Window* windowPtr;
-    const sf::Window& windowRef = *windowPtr;
+    sf::Window window;
 
-    position = sf::Mouse::getPosition(windowRef);
+    position = sf::Mouse::getPosition(window);
 
     sf::Mouse::setPosition(position);
-    sf::Mouse::setPosition(position, windowRef);
+    sf::Mouse::setPosition(position, window);
+}
+
+// Sensor.hpp
+void test_sensor()
+{
+    std::initializer_list<sf::Sensor::Type> sensorTypes = {
+        sf::Sensor::Accelerometer,
+        sf::Sensor::Gyroscope,
+        sf::Sensor::Magnetometer,
+        sf::Sensor::Gravity,
+        sf::Sensor::UserAcceleration,
+        sf::Sensor::Orientation,
+        sf::Sensor::Count
+    };
+
+    bool isAvailable = sf::Sensor::isAvailable(sf::Sensor::Accelerometer);
+    sf::Sensor::setEnabled(sf::Sensor::Accelerometer, false);
+    sf::Vector3f value = sf::Sensor::getValue(sf::Sensor::Accelerometer);
+}
+
+// Touch.hpp
+void test_touch()
+{
+    unsigned int finger = 0u;
+    bool isDown = sf::Touch::isDown(finger);
+    sf::Vector2i position = sf::Touch::getPosition(finger);
+
+    sf::Window window;
+    position = sf::Touch::getPosition(finger, window);
+}
+
+// VideoMode.hpp
+void test_videomode()
+{
+    sf::VideoMode videoMode;
+    sf::VideoMode videoMode2(10u, 10u);
+    sf::VideoMode videoMode3(10u, 10u, 32);
+
+    videoMode = sf::VideoMode::getDesktopMode();
+
+    const std::vector<sf::VideoMode>& modes = sf::VideoMode::getFullscreenModes();
+    bool isValid = videoMode.isValid();
+
+    videoMode.width = 10u;
+    videoMode.height = 10u;
+    videoMode.bitsPerPixel = 32;
+
+    bool test = (videoMode == videoMode2);
+    test = (videoMode != videoMode2);
+    test = (videoMode < videoMode2);
+    test = (videoMode > videoMode2);
+    test = (videoMode <= videoMode2);
+    test = (videoMode >= videoMode2);
+}
+
+// Window.hpp
+
+void test_window()
+{
+    sf::Window window;
+
+    sf::VideoMode videoMode;
+    sf::String title;
+    sf::Uint32 style;
+    sf::ContextSettings contextSettings;
+
+    sf::Window window2(videoMode, title);
+    sf::Window window3(videoMode, title, style);
+    sf::Window window4(videoMode, title, style, contextSettings);
+
+    sf::WindowHandle handle;
+
+    sf::Window window5(handle);
+    sf::Window window6(handle, contextSettings);
+
+    window.create(videoMode, title);
+    window.create(videoMode, title, style);
+    window.create(videoMode, title, style, contextSettings);
+
+    window.create(handle);
+    window.create(handle, contextSettings);
+
+    window.close();
+
+    bool isOpen = window.isOpen();
+
+    contextSettings = window.getSettings();
+
+    sf::Event event;
+
+    bool hasEvent = window.pollEvent(event);
+    bool succeded = window.waitEvent(event);
+
+    sf::Vector2i position = window.getPosition();
+    window.setPosition(position);
+
+    sf::Vector2u size = window.getSize();
+    window.setSize(size);
+
+    window.setTitle(title);
+
+    window.setIcon(32u, 32u, (const sf::Uint8*)nullptr);
+
+    window.setVisible(false);
+    window.setVerticalSyncEnabled(false);
+    window.setMouseCursorGrabbed(false);
+
+    sf::Cursor cursor;
+    window.setMouseCursor(cursor);
+
+    window.setKeyRepeatEnabled(false);
+
+    window.setFramerateLimit(60u);
+    window.setJoystickThreshold(0.f);
+
+    succeded = window.setActive();
+    succeded = window.setActive(false);
+
+    window.requestFocus();
+
+    bool hasFocus = window.hasFocus();
+
+    window.display();
+
+    handle = window.getSystemHandle();
+}
+
+// test if there are still protected virtual methods
+struct WindowDerived : sf::Window
+{
+    void onCreate() override {};
+    void onResize() override {};
+};
+
+// WindowStyle.hpp
+void test_window_style()
+{
+    std::initializer_list<int> styles = {
+        sf::Style::None,
+        sf::Style::Titlebar,
+        sf::Style::Resize,
+        sf::Style::Close,
+        sf::Style::Fullscreen,
+        sf::Style::Default
+    };
 }
