@@ -344,6 +344,36 @@ void test_keyboard()
         sf::Keyboard::Return
     };
 
-    bool isKeyPressed = sf::Keyboard::isKeyPressed(sf::Key::Enter);
+    bool isKeyPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Enter);
     sf::Keyboard::setVirtualKeyboardVisible(false);
+}
+
+// Mouse.hpp
+void test_mouse()
+{
+    std::initializer_list<sf::Mouse::Button> buttons = {
+        sf::Mouse::Left,
+        sf::Mouse::Right,
+        sf::Mouse::Middle,
+        sf::Mouse::XButton1,
+        sf::Mouse::XButton2,
+
+        sf::Mouse::ButtonCount
+    };
+
+    std::initializer_list<sf::Mouse::Wheel> wheels = {
+        sf::Mouse::VerticalWheel,
+        sf::Mouse::HorizontalWheel
+    };
+
+    bool isButtonPressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
+    sf::Vector2i position = sf::Mouse::getPosition();
+
+    sf::Window* windowPtr;
+    const sf::Window& windowRef = *windowPtr;
+
+    position = sf::Mouse::getPosition(windowRef);
+
+    sf::Mouse::setPosition(position);
+    sf::Mouse::setPosition(position, windowRef);
 }
