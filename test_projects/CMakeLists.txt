@@ -16,7 +16,4 @@ add_subdirectory(SFNUL)
 set(SFML_ROOT "${MML_INSTALL_DIR}")
 add_subdirectory(Thor)
 
-add_library(api_usage_reference  STATIC api_usage_system.cpp api_usage_audio.cpp api_usage_network.cpp api_usage_window.cpp api_usage_graphics.cpp)
-add_library(api_usage_mml_compat STATIC api_usage_system.cpp api_usage_audio.cpp api_usage_network.cpp api_usage_window.cpp api_usage_graphics.cpp)
-target_include_directories(api_usage_reference PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/sfml_reference_api")
-target_include_directories(api_usage_mml_compat PRIVATE "${CMAKE_SOURCE_DIR}/MML/include")
+add_subdirectory(api-compat-test)

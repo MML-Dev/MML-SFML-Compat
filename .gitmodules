@@ -18,3 +18,7 @@
 [submodule "test_projects/ImGui"]
 	path = test_projects/ImGui
 	url = https://github.com/ocornut/imgui.git
+[submodule "test_projects/api-compat-test/SFML"]
+	path = test_projects/api-compat-test/SFML
+	url = https://github.com/SFML/SFML.git
+	branch = master
