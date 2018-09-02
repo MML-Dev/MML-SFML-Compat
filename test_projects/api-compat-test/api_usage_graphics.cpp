@@ -197,9 +197,165 @@ void test_primitivetype_hpp()
     type = sf::TriangleFan;
     type = sf::Quads;
     
-    // Were deprecated and are removed from MML:
+    // Were deprecated in SFML and are removed from MML:
 //    type = sf::LinesStrip;
 //    type = sf::TrianglesStrip;
 //    type = sf::TrianglesFan;
 }
 
+void test_rect_hpp()
+{
+    sf::FloatRect frect;
+    sf::IntRect irect;
+    sf::IntRect rect((int){}, (int){}, (int){}, (int){});
+    sf::IntRect rectv(sf::Vector2i{}, sf::Vector2i{});
+    sf::IntRect conv(frect);
+    bool b = rect.contains((int){}, (int){});
+    b = rect.contains(sf::Vector2i());
+    b = rect.intersects(irect);
+    b = rect.intersects(irect, irect);
+    int left = rect.left;
+    int top = rect.top;
+    int width = rect.width;
+    int height = rect.height;
+    b = rect == rect;
+    b = rect != rect;
+}
+
+void test_rectangleshape_hpp()
+{
+    sf::RectangleShape shape(sf::Vector2f{});
+    shape.setSize(sf::Vector2f());
+    sf::Vector2f sz = shape.getSize();
+    std::size_t c = shape.getPointCount();
+    sf::Vector2f p = shape.getPoint(std::size_t());
+}
+
+void test_renderstates_hpp()
+{
+    sf::RenderStates st;
+    sf::RenderStates customBlend(sf::BlendAdd);
+    sf::RenderStates customTf(sf::Transform{});
+    sf::RenderStates customTex((const sf::Texture*)nullptr);
+    sf::RenderStates customShader((const sf::Shader*)nullptr);
+    sf::RenderStates customAll(sf::BlendAdd, sf::Transform{},
+                               (const sf::Texture*)nullptr, (const sf::Shader*)nullptr);
+    st = sf::RenderStates::Default;
+    sf::BlendMode bm = st.blendMode;
+    sf::Transform tf = st.transform;
+    const sf::Texture* tex = st.texture;
+    const sf::Shader* sh = st.shader;
+}
+
+void test_rendertarget_hpp()
+{
+    sf::RenderTexture rd;
+    rd.clear(sf::Color::Blue);
+    rd.setView(sf::View{});
+    sf::View view = rd.getView();
+    view = rd.getDefaultView();
+    sf::IntRect ir = rd.getViewport(view);
+    sf::Vector2f coords = rd.mapPixelToCoords(sf::Vector2i{});
+    coords = rd.mapPixelToCoords(sf::Vector2i{}, view);
+    sf::Vector2i pix = rd.mapCoordsToPixel(coords);
+    pix = rd.mapCoordsToPixel(coords, view);
+    sf::Sprite sp;
+    rd.draw(sp, sf::RenderStates{});
+    rd.draw((const sf::Vertex*)nullptr, std::size_t(), sf::Triangles, sf::RenderStates::Default);
+    sf::VertexBuffer vb;
+    rd.draw(vb, sf::RenderStates::Default);
+    rd.draw(vb, std::size_t(), std::size_t(), sf::RenderStates::Default);
+    
+    sf::Vector2u sz = rd.getSize();
+    bool b = rd.setActive(bool{});
+    rd.pushGLStates();
+    rd.popGLStates();
+    rd.resetGLStates();
+}
+
+void test_rendertexture_hpp()
+{
+    sf::RenderTexture rt;
+    bool b = rt.create((unsigned int){}, (unsigned int){}, bool());
+    b = rt.create((unsigned int){}, (unsigned int){}, sf::ContextSettings());
+    unsigned int al = sf::RenderTexture::getMaximumAntialiasingLevel();
+    rt.setSmooth(bool());
+    b = rt.isSmooth();
+    rt.setRepeated(bool());
+    b = rt.isRepeated();
+    b = rt.generateMipmap();
+    b = rt.setActive(bool());
+    rt.display();
+    sf::Vector2u sz = rt.getSize();
+    const sf::Texture& tex = rt.getTexture();
+}
+
+void test_renderwindow_hpp()
+{
+    sf::RenderWindow rw;
+    sf::RenderWindow custom(sf::VideoMode{}, sf::String{}, sf::Style::Default, sf::ContextSettings{});
+    sf::RenderWindow fromHandle(sf::WindowHandle{}, sf::ContextSettings{});
+    sf::Vector2u sz = rw.getSize();
+    bool b = rw.setActive(bool());
+    sf::Image img = rw.capture();
+}
+
+void test_shader_hpp()
+{
+    sf::Shader::Type st;
+    st = sf::Shader::Vertex;
+    st = sf::Shader::Geometry;
+    st = sf::Shader::Fragment;
+    
+    sf::Shader::CurrentTextureType ctt = sf::Shader::CurrentTexture;
+    sf::Shader sh;
+    bool b = sh.loadFromFile(std::string(), st);
+    b = sh.loadFromFile(std::string(), std::string());
+    b = sh.loadFromFile(std::string(), std::string(), std::string());
+    b = sh.loadFromMemory(std::string(), st);
+    b = sh.loadFromMemory(std::string(), std::string());
+    b = sh.loadFromMemory(std::string(), std::string(), std::string());
+    sf::FileInputStream stream;
+    b = sh.loadFromStream(stream, st);
+    b = sh.loadFromStream(stream, stream);
+    b = sh.loadFromStream(stream, stream, stream);
+    sh.setUniform(std::string(), float());
+    sh.setUniform(std::string(), sf::Glsl::Vec2());
+    sh.setUniform(std::string(), sf::Glsl::Vec3());
+    sh.setUniform(std::string(), sf::Glsl::Vec4());
+    sh.setUniform(std::string(), int());
+    sh.setUniform(std::string(), sf::Glsl::Ivec2());
+    sh.setUniform(std::string(), sf::Glsl::Ivec3());
+    sh.setUniform(std::string(), sf::Glsl::Ivec4());
+    sh.setUniform(std::string(), bool());
+    sh.setUniform(std::string(), sf::Glsl::Bvec2());
+    sh.setUniform(std::string(), sf::Glsl::Bvec3());
+    sh.setUniform(std::string(), sf::Glsl::Bvec4());
+    sh.setUniform(std::string(), sf::Glsl::Mat3(nullptr));
+    sh.setUniform(std::string(), sf::Glsl::Mat4(nullptr));
+    sh.setUniform(std::string(), sf::Texture());
+    sh.setUniform(std::string(), ctt);
+    
+    sh.setUniformArray(std::string(), (const float*)nullptr, std::size_t());
+    sh.setUniformArray(std::string(), (const sf::Glsl::Vec2*)nullptr, std::size_t());
+    sh.setUniformArray(std::string(), (const sf::Glsl::Vec3*)nullptr, std::size_t());
+    sh.setUniformArray(std::string(), (const sf::Glsl::Vec4*)nullptr, std::size_t());
+    sh.setUniformArray(std::string(), (const sf::Glsl::Mat3*)nullptr, std::size_t());
+    sh.setUniformArray(std::string(), (const sf::Glsl::Mat4*)nullptr, std::size_t());
+    
+    sh.setParameter(std::string(), float());
+    sh.setParameter(std::string(), float(), float());
+    sh.setParameter(std::string(), float(), float(), float());
+    sh.setParameter(std::string(), float(), float(), float(), float());
+    sh.setParameter(std::string(), sf::Vector2f());
+    sh.setParameter(std::string(), sf::Vector3f());
+    sh.setParameter(std::string(), sf::Color());
+    sh.setParameter(std::string(), sf::Transform());
+    sh.setParameter(std::string(), sf::Texture());
+    sh.setParameter(std::string(), ctt);
+    
+    unsigned int handle = sh.getNativeHandle();
+    sf::Shader::bind(&sh);
+    b = sf::Shader::isAvailable();
+    b = sf::Shader::isGeometryAvailable();
+}
